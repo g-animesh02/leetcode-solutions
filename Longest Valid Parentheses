@@ -1,0 +1,47 @@
+//Ques - https://leetcode.com/problems/longest-valid-parentheses/
+//O(2n)
+
+class Solution {
+    public int longestValidParentheses(String s) {
+        int max = 0;
+        int left_bracket = 0;
+        int right_bracket = 0;
+        
+        for(int i = 0; i < s.length() ; i ++){
+            char ch = s.charAt(i);
+            if(ch == '(')
+                left_bracket++;
+            else
+                right_bracket++;
+            if(left_bracket == right_bracket){
+                if(2* right_bracket > max)
+                    max = 2*right_bracket;
+            }
+            if(right_bracket > left_bracket ){
+                left_bracket = 0;
+                right_bracket = 0;
+            }
+        }
+        left_bracket = 0;
+        right_bracket = 0;
+        int max_r = 0;
+        for(int i = s.length()-1; i > 0 ; i --){
+            char ch = s.charAt(i);
+            if(ch == '(')
+                left_bracket++;
+            else
+                right_bracket++;
+            if(left_bracket == right_bracket){
+                if(2* left_bracket > max_r)
+                    max_r = 2*left_bracket;
+            }
+            if(left_bracket > right_bracket){
+                left_bracket = 0;
+                right_bracket = 0;
+            }
+        }
+        
+        
+        return Math.max(max, max_r);
+    }
+}
