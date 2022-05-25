@@ -1,0 +1,32 @@
+//Question - https://leetcode.com/problems/sort-colors/
+//Naive Way - Sorting using a sorting algorithm
+
+//Optimized way - O(n)
+class Solution {   
+    public void sortColors(int[] nums) {
+        int l = 0; 
+    int h= nums.length-1;
+    int mid = 0;
+    while ( mid <=h)
+    {
+        switch ( nums[mid])
+        {
+            case 0: int temp=nums[l];
+                nums[l]=nums[mid];
+                nums[mid]=temp;
+                l++; 
+                mid++;
+                break;
+                
+            case 1 : mid++;
+                break;
+            
+            case 2:  int temp1=nums[mid];
+                nums[mid]=nums[h];
+                nums[h]=temp1;
+                h--;
+                break;
+        }
+     }
+   }
+}
