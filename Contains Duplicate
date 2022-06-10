@@ -1,0 +1,29 @@
+//Ques - https://leetcode.com/problems/contains-duplicate/submissions/
+
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap();
+        for(int i = 0; i < nums.length; i++){
+            if(map.getOrDefault(nums[i], 0) > 0)
+                return true;
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+            
+        }
+        return false;
+    }
+}
+
+Or
+
+class Solution {
+    public boolean containsDuplicate(int[] nums) 
+    {
+        Map<Integer, Boolean> numbers = new HashMap<>();
+        for(int num : nums){
+            if(numbers.get(num) != null)
+                return true;
+            numbers.put(num, true);
+        }
+        return false;
+    }
+}
