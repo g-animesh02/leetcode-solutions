@@ -1,0 +1,28 @@
+Ques - https://leetcode.com/problems/maximum-subarray/submissions/
+
+Time - O(n), Space - O(1)
+
+class Solution {
+    public int maxSubArray(int[] nums) {
+    
+        //----- Kadane Algorithm --------
+        int currSum = 0;
+        int max = 0;
+        for(int num : nums){
+            if(currSum + num < 0)
+                currSum = 0;
+            else{
+                max  = Math.max(currSum+num, max);
+                currSum += num;
+            }
+        }
+         //-----Handling negative values (not a part of Kadane's Algo)------------
+        if(max == 0){
+            max = Integer.MIN_VALUE;
+            for(int num : nums){
+                max = Math.max(max, num);
+            }
+        }
+        return max;
+    }
+}
