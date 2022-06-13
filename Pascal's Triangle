@@ -1,0 +1,30 @@
+Ques - https://leetcode.com/problems/pascals-triangle/submissions/
+
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        
+        int rows = 0;
+        for(int i = 0; i < numRows; i++){
+            List<Integer> rowAns = new ArrayList<Integer>();
+            for(int j = 0; j <= rows; j++){
+                if(j == 0 || j == rows)
+                    rowAns.add(1);
+                else
+                {
+                    int n1 = ans.get(i-1).get(j-1);
+                    int n2 = ans.get(i-1).get(j);
+                    rowAns.add(n1+n2);
+                }                   
+                
+            }
+            rows++;
+            //System.out.println(rowAns);
+            ans.add(rowAns);
+        }
+        
+        
+        
+        return ans;
+    }
+}
