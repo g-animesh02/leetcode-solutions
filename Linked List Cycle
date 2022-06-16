@@ -1,0 +1,20 @@
+Ques - https://leetcode.com/problems/linked-list-cycle/submissions/
+
+
+Time - O(n)
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast != null){
+            fast = fast.next;
+            if(fast == slow)
+                return true;
+            if(fast != null && fast.next != null)
+                fast = fast.next;
+            slow = slow.next;
+        }
+        return false;
+    }
+}
