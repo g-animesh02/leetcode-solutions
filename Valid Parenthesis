@@ -1,0 +1,156 @@
+Ques - https://leetcode.com/problems/valid-parentheses/submissions/
+
+
+Without Using Stack
+
+class Solution {
+    public boolean isValid(String s) {
+        if(s.length() % 2 == 1) {
+            return false;
+        }
+        
+        char[] chars = new char[s.length()];
+        int index = -1;
+        
+        
+        for(int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            
+            switch(c) {
+                case ')':
+                    if(index < 0 || '(' != chars[index]) {
+                        return false;
+                    }
+                    
+                    index--;
+                    
+                    break;
+                case ']':
+                    if(index < 0 || '[' != chars[index]) {
+                        return false;
+                    }
+                    
+                    index--;
+                    
+                    break;
+                case '}':
+                    if(index < 0 || '{' != chars[index]) {
+                        return false;
+                    }
+                    
+                    index--;
+                    
+                    break;
+                default:
+                    index++;
+                    chars[index] = c;
+                    
+            }
+        }
+        
+        if(index >= 0) {
+            return false;
+        }
+        
+        return true;
+    }
+}
+
+
+
+
+
+
+Using Stacks
+
+class Solution {
+    int top = -1;
+    char stack[];
+    
+    char pop(){
+        if(top == -1)
+            return 'f';
+        char ch = stack[top];
+        top--;
+        return ch;
+    }
+    
+    char push(char ch, int len){
+        if(top == len-1)
+            return 'f';
+        top++;
+        stack[top] = ch;
+        return 't';
+    }
+    
+    char peek(){
+        if(top == -1)
+            return 'f';
+        return stack[top];
+    }
+    
+    
+    
+    public boolean isValid(String s) {
+        stack = new char[s.length()];
+        for(int i = 0; i<s.length(); i++){
+            char ch = s.charAt(i);
+            
+            
+            if(ch == ')'){
+                char chk = peek();
+                if(chk == 'f')
+                    return false;
+                if(chk == '('){
+                    char rt = pop();
+                    if(rt == 'f')
+                        return false;
+                }
+                else{
+                    return false;
+                }
+            }
+            
+            else if(ch == '}'){
+                char chk = peek();
+                if(chk == 'f')
+                    return false;
+                if(chk == '{'){
+                    char rt = pop();
+                    if(rt == 'f')
+                        return false;
+                }
+                else{
+                    return false;
+                }
+            }
+            
+            else if(ch == ']'){
+                char chk = peek();
+                if(chk == 'f')
+                    return false;
+                if(chk == '['){
+                    char rt = pop();
+                    if(rt == 'f')
+                        return false;
+                }
+                else{
+                    return false;
+                }
+            }
+            
+            else{
+                char c = push(ch, s.length());
+            }     
+            
+            
+            
+            
+        }
+        if(top == -1)
+            return true;
+        else
+            return false;
+        
+    }
+}
