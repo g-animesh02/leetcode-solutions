@@ -1,0 +1,33 @@
+Ques - https://leetcode.com/problems/symmetric-tree/
+
+
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if(root == null)
+            return true;
+        
+        return traversal(root.left, root.right);
+        
+    }
+    
+    boolean traversal(TreeNode nodeL, TreeNode nodeR){
+        if(nodeL == null){
+            if(nodeR == null)
+                return true;
+            else
+                return false;
+        }
+        if(nodeR == null){
+            if(nodeL == null)
+                return true;
+            else
+                return false;
+        }
+        
+        if(nodeL.val != nodeR.val)
+            return false;
+        
+        return traversal(nodeL.left, nodeR.right) && traversal(nodeL.right, nodeR.left);
+            
+    }
+}
