@@ -1,0 +1,36 @@
+Ques - https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
+
+
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+        return traversal1st(root, root, k);
+        
+    }
+    boolean traversal1st(TreeNode root, TreeNode node, int k){
+        if(node == null) return false;
+        
+        int t = node.val;
+        int target = k - t;
+        int chk = traversal2nd(root, target);
+        if(chk != -1 && chk != node.val)
+            return true;
+        if(traversal1st(root, node.left, k))
+            return true;
+        if(traversal1st(root, node.right, k))
+            return true;
+        return false;
+        
+    }
+    
+    int traversal2nd(TreeNode root, int k){
+        if (root == null)
+            return -1;
+        if(root.val == k)
+            return root.val;
+        if(k < root.val){
+            return traversal2nd(root.left, k);
+        }
+        else
+            return traversal2nd(root.right, k);
+    }
+}
