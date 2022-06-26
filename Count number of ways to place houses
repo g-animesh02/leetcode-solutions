@@ -1,0 +1,19 @@
+Ques - https://leetcode.com/problems/count-number-of-ways-to-place-houses/
+
+
+class Solution {       
+    public int countHousePlacements(int n) {
+        long mod = (long)Math.pow(10,9)+7;
+        
+        long f0 = 1;
+        long f1 = 2;
+        for(int i = 2; i <=n; i++){
+            long c = (f1+f0)%mod;
+            
+            f0 = f1;
+            f1 = c;
+        }
+        return (int)((f1*f1)%mod);
+            
+    }
+}
