@@ -1,0 +1,23 @@
+Ques - https://leetcode.com/problems/rotate-image/submissions/
+
+
+
+class Solution {
+    public void rotate(int[][] matrix) {
+        
+        int left = 0, right = matrix.length-1, top = 0, bottom = matrix.length-1;
+      
+        for(int i = 0; i<matrix.length; i++){
+            int c = 0;
+            while(c<matrix.length-2*i-1){
+                int t = matrix[bottom-i-c][right-i];
+                matrix[bottom-i-c][right-i] = matrix[top+i][right-i-c];
+                matrix[top+i][right-i-c] = matrix[top+i+c][left+i];
+                matrix[top+i+c][left+i] = matrix[bottom-i][left+i+c];
+                matrix[bottom-i][left+i+c] = t;
+                c++;  
+                
+            }
+        }
+    }
+}
