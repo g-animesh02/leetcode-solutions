@@ -1,0 +1,35 @@
+Ques - https://leetcode.com/problems/partition-labels/
+
+
+class Solution {
+    public List<Integer> partitionLabels(String s) {
+        List<Integer> ans = new ArrayList();
+        int width = 0;
+        int start = 0;
+        
+        int[] last = new int[26];
+        for(int i = 0; i < s.length(); i++){
+            last[s.charAt(i)-'a'] = i;
+        }
+        
+        
+        for(int i = 0; i <  s.length(); i++){
+            char ch = s.charAt(i);
+            
+            int lastIndex_ch = last[ch-'a'];
+            
+            if(lastIndex_ch >= width){
+                width = lastIndex_ch;                
+            }
+            
+            if(i == width){
+                ans.add(widt
+                lastIndex_ch =h-start+1);
+                start=width+1;
+                width = start; start;
+            }
+        }
+        
+        return ans;
+    }
+}
