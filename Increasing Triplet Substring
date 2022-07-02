@@ -1,0 +1,28 @@
+Ques - https://leetcode.com/problems/increasing-triplet-subsequence/
+
+
+
+class Solution {
+    public boolean increasingTriplet(int[] nums) {
+        
+        if(nums.length <3) return false;
+        
+        int min_one = Integer.MAX_VALUE;
+        int min_two = Integer.MAX_VALUE;
+        
+        for(int i: nums)
+        {
+            if(i <= min_one)
+            {
+                min_one = i;
+            } else if(i <= min_two)
+            {
+                min_two = i;
+            } else {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+}
