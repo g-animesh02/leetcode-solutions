@@ -1,0 +1,44 @@
+Ques - https://leetcode.com/problems/multiply-strings/
+
+
+
+class Solution {
+    public static String multiply(String num1, String num2) {
+        int[] upNum = toInt(num1);
+        int[] downNum = toInt(num2);
+        int[] res = new int[upNum.length + downNum.length];
+        for (int i = 0, n = downNum.length; i < n; i++) {
+            int down = downNum[i];
+            for (int j = 0, m = upNum.length; j < m; j++) {
+                int up = upNum[j];
+                res[i + j] += up * down;
+            }
+        }
+        int carry = 0;
+        for (int i = 0, n = res.length; i < n; i++) {
+            res[i] += carry;
+            carry = res[i] / 10;
+            res[i] = res[i] % 10;
+        }
+        int right = res.length - 1;
+        while (res[right] == 0 && right > 0) {
+            right--;
+        }
+        char[] s = new char[right + 1];
+        for (int i = right; i >= 0; i--) {
+            s[right - i] = (char) ('0' + res[i]);
+        }
+        return new String(s);
+    }
+
+    public static int[] toInt(String num) {
+        int len = num.length();
+        int[] res = new int[len];
+        for (int i = len - 1; i >= 0; i--) {
+            res[len - i - 1] = num.charAt(i) - '0';
+        }
+        return res;
+    }
+}
+
+
