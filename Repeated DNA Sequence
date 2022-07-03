@@ -1,0 +1,22 @@
+Ques - https://leetcode.com/problems/repeated-dna-sequences/
+
+
+class Solution {
+    public List<String> findRepeatedDnaSequences(String s) {
+        
+        Set<String> ans = new HashSet<String>();
+        Set<String> set = new HashSet<String>();
+        for(int i = 0; i<=s.length()-10; i++){
+
+            String str = s.substring(i, i+10);
+            //System.out.println(str);
+            if(!set.add(str))
+                ans.add(str);
+        }
+        List<String> res = new ArrayList();
+        for(String i: ans)
+            res.add(i);
+        return res;
+        
+    }
+}
