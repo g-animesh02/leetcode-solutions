@@ -1,0 +1,20 @@
+Ques - https://leetcode.com/problems/linked-list-cycle-ii/
+
+
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+     
+        int pos = 0;
+        HashSet<ListNode> set = new HashSet();
+        ListNode t = head;
+        while(t!= null){
+            if(!set.add(t))
+                return t;
+            t = t.next;
+            
+        }
+        return null;
+    }
+}
+
+
