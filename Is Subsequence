@@ -1,0 +1,30 @@
+Ques - https://leetcode.com/problems/is-subsequence/
+
+
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        if(s.length() == 0)
+            return true;
+        if(t.length() == 0)
+            if(s.length() == 0)
+                return true;
+            else
+                return false;
+        
+        int count = 0;
+        int i = 0, j = 0;
+        for(; i < s.length(); i++){
+            char ch = s.charAt(i);
+            char cht = '/';          
+            
+            while(ch != cht && j < t.length()){
+                cht = t.charAt(j);
+                j++;            
+            }
+        if(cht == ch)
+            count++;
+        }
+        System.out.println(count);
+        return count == s.length();
+    }
+}
