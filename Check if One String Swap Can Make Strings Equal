@@ -1,0 +1,31 @@
+Ques - https://leetcode.com/problems/check-if-one-string-swap-can-make-strings-equal/
+
+
+class Solution {
+    public boolean areAlmostEqual(String s1, String s2) {
+        int[] alpha = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,81,83,89,103};
+        char[] ch = s1.toCharArray();
+        char[] ch2 = s2.toCharArray();
+        
+        long prod1 = 1;
+        for(char i: ch){
+            prod1 *= alpha[i-'a'];
+        }
+        long prod2 = 1;
+        
+        int j = 0, c= 0;
+        for(char i: ch2){
+            prod2 *= alpha[i - 'a'];
+            if(i != ch[j]){
+                //System.out.println(i);
+                c++;                
+            }
+            j++;
+        }
+        if(prod1 == prod2)
+            if(c == 0 || c == 2)
+                return true;
+        return false;
+    }
+}
+
