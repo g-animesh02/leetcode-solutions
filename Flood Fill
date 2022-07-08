@@ -1,0 +1,29 @@
+Ques - https://leetcode.com/problems/flood-fill/
+
+
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        
+        if(image[sr][sc] == color)
+            return image;
+        
+        return floodFillTraversal(image, sr, sc, color, image[sr][sc]);
+        
+    }
+    
+    public int[][] floodFillTraversal(int[][]image, int sr, int sc, int color, int chkColor){
+        if(sr < 0 || sc < 0 || sr > image.length-1 || sc > image[0].length-1)
+            return image;
+        if(image[sr][sc] == chkColor){
+            image[sr][sc] = color;
+            image = floodFillTraversal(image, sr-1, sc, color, chkColor);
+            image = floodFillTraversal(image, sr+1, sc, color, chkColor);
+            image = floodFillTraversal(image, sr, sc+1, color, chkColor);
+            image = floodFillTraversal(image, sr, sc-1, color, chkColor);
+            
+            
+        }
+        return image;
+        
+    }
+}
