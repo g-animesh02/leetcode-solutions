@@ -1,0 +1,19 @@
+Ques - https://leetcode.com/problems/path-sum/
+
+
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if(root == null)
+            return false;
+        return traversal(root, targetSum, 0);
+    }
+    boolean traversal(TreeNode node, int targetSum, int sum){
+        if(node == null)
+            return false;
+        sum += node.val;
+        
+        if(node.left == null && node.right==null && targetSum == sum)
+            return true;
+        
+        return traversal(node.left, targetSum, sum) || traversal(node.right, targetSum, sum);
+    }
+}
