@@ -1,0 +1,29 @@
+Ques - https://leetcode.com/problems/add-to-array-form-of-integer/
+
+
+class Solution {
+    public List<Integer> addToArrayForm(int[] num, int k) {
+        
+        int c = k;
+        int carry = 0;
+        List<Integer> list = new ArrayList();
+        
+        for(int i = num.length-1; i >=0 || c != 0; i--){
+            int d = c%10;
+            c /= 10;
+            int sum = 0;
+            if( i < 0)
+                sum = d+carry;
+            else
+                sum = num[i] + d +carry;
+            
+            list.add(sum%10);
+            carry = sum/10;
+            
+        }
+        if(carry > 0)
+            list.add(carry);
+        Collections.reverse(list);
+        return list;
+    }
+}
