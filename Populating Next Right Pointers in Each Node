@@ -1,0 +1,46 @@
+Ques - https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+
+
+DFS - 
+
+class Solution {
+    public Node connect(Node root) {
+        dfs(root, null);
+        return root;
+    }
+    private void dfs(Node prev, Node cur){
+        if(prev == null) return;
+        prev.next = cur;
+        dfs(prev.left, prev.right);
+        dfs(prev.right, prev.next == null ? null : prev.next.left);
+    }
+}
+
+BFS - 
+
+class Solution {
+    
+    Queue<Node> queue = new LinkedList();
+    public Node connect(Node root) {
+        
+        if(root == null)
+            return  null;
+        
+        queue.add(root);
+        while(!queue.isEmpty()){            
+            int len = queue.size();
+            List<Node> list = new ArrayList();
+            Node n = new Node(),prev;
+            for(int i = 0; i < len; i++){
+                prev = n;
+                n = queue.poll();
+                //System.out.println(n.val);
+                if(n.left != null) queue.add(n.left);
+                if(n.right != null) queue.add(n.right);
+                prev.next = n;
+            }
+            n.next = null;
+        }
+        return root;
+    }
+}
