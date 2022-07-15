@@ -1,0 +1,27 @@
+Ques - https://leetcode.com/problems/combinations/
+
+
+class Solution {
+    
+    List<List<Integer>> ans;
+    
+    public List<List<Integer>> combine(int n, int k) {
+        ans = new ArrayList();
+        traversal(new ArrayList(), n,k,1);
+        return ans;
+    }
+    
+    void traversal(List<Integer> l, int n, int k, int start){
+        if(l.size() == k){
+            ans.add(new ArrayList(l));
+            return;
+        }
+        
+        for(int i = start; i <= n; i++){
+            l.add(i);
+            traversal(l, n, k, i+1);
+            l.remove(Integer.valueOf(i));
+        }
+    }
+    
+}
