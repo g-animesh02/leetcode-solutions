@@ -1,0 +1,32 @@
+Ques - https://leetcode.com/problems/bulls-and-cows/
+
+
+class Solution {
+    public String getHint(String secret, String guess) {
+        int arrS[] = new int[10];
+        int arrG[] = new int[10];
+        int bull = 0 , cow  =0 ;
+            
+        for(int i = 0; i < secret.length(); i++){
+            char ch = secret.charAt(i);
+            char ch2 = guess.charAt(i);
+            if(ch == ch2)
+                bull++;
+            else{
+                arrS[ch-'0'] += 1;
+                arrG[ch2-'0'] += 1;
+            }
+        }
+        
+        for(int i = 0; i < 10; i++){
+            cow+=Math.min(arrS[i],arrG[i]);
+        }
+        
+        StringBuilder s = new StringBuilder();
+        s.append(bull);
+        s.append("A");
+        s.append(cow);
+        s.append("B");
+        return s.toString();
+    }
+}
