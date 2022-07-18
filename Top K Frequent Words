@@ -1,0 +1,58 @@
+Ques - https://leetcode.com/problems/top-k-frequent-words/
+
+
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        
+        List<String> ans = new ArrayList();
+        HashMap<String,Integer> map = new HashMap();
+        
+        for(int i = 0; i < words.length; i++){
+            map.put(words[i], map.getOrDefault(words[i],0)+1);
+        }
+        
+        SortedSet<Integer> list = new TreeSet<Integer>();
+        
+        HashMap<Integer, List<String>> count = new HashMap();
+        for(String i: map.keySet()){
+            int c = map.get(i);
+            if(count.containsKey(c)){
+                List l = count.get(c);
+                l.add(i);
+                count.put(c,l);
+            }
+            else{
+                List l = new ArrayList();
+                l.add(i);
+                count.put(c,l);
+            }
+            list.add(c);
+        }
+        
+        //System.out.println(list);
+        while(k > 0){
+            int num = list.last();
+            List l = count.get(num);
+            list.remove(num);
+            Collections.sort(l);
+            //System.out.println(l);
+            int idx = 0;
+            int loop = 0;
+            if(l.size() >= k){
+                loop = k;
+            }
+            else{
+                loop = l.size();
+            }
+            k -= loop;
+            while(loop > 0){
+                ans.add(l.get(idx)+"");
+                idx++;
+                loop--;
+            }
+        }
+        return ans;
+        
+        
+    }
+}
