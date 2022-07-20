@@ -1,0 +1,25 @@
+Ques - https://leetcode.com/problems/house-robber/
+
+
+class Solution {
+    
+    int dp[];
+    int house[];
+    public int rob(int[] nums) {
+        dp = new int[nums.length];
+        Arrays.fill(dp,-1);
+        house = nums;   
+        return Math.max(robHouse(0,0), robHouse(1,0));
+    }
+    
+    int robHouse(int i, int max){
+        if(i >= house.length)
+            return max;
+        if(dp[i] != -1)
+            return dp[i];
+        dp[i] = house[i] + Math.max(robHouse(i+2, max), robHouse(i+3, max));
+        return dp[i];
+        
+    }
+    
+}
