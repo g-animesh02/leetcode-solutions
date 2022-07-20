@@ -1,0 +1,31 @@
+Ques - https://leetcode.com/problems/lemonade-change/
+
+
+class Solution {
+    public boolean lemonadeChange(int[] bills) {
+        
+        int change5 = 0;
+        int change10 = 0;
+        
+        for(int i : bills){
+            if(i == 5)
+                change5++;
+            else if(i == 10){
+                change10++;
+                if(change5 == 0)
+                    return false;
+                change5--;
+            }else{
+                if(change10 >= 1 && change5 >= 1){
+                    change10--;
+                    change5--;
+                }else if(change5>=3)
+                    change5 -= 3;
+                else
+                    return false;
+            }
+        
+        }
+        return true;
+    }
+}
