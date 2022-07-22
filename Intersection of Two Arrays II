@@ -1,0 +1,33 @@
+Ques - https://leetcode.com/problems/intersection-of-two-arrays-ii/
+
+
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        Map<Integer,Integer> map=new HashMap<>();
+        
+        for(int i: nums1){
+            map.put(i,map.getOrDefault(i,0)+1);
+        }
+        List<Integer> arr=new ArrayList<>();
+        for(int i: nums2){
+            if(map.containsKey(i)){
+                int l=map.get(i);
+                if(l==0)
+                    continue;
+                map.put(i,l-1);
+                
+                    arr.add(i);
+                }
+            }
+        
+        
+       int arr1[]=new int[arr.size()];
+        for(int i=0;i<arr1.length;i++)
+            arr1[i]=arr.get(i);
+        
+        return arr1;
+        
+    }
+}
+
+
