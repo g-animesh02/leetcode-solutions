@@ -1,0 +1,42 @@
+Ques - https://leetcode.com/contest/biweekly-contest-83/problems/best-poker-hand/
+
+
+class Solution {
+    public String bestHand(int[] ranks, char[] suits) {
+        
+        boolean flag = true;
+        for(int i = 0; i < suits.length-1; i++){
+            if(suits[i] != suits[i+1]){
+                flag = false;
+                break;
+            }            
+        }
+        if(flag)
+            return "Flush";
+        
+        HashMap<Integer, List<Character>> map = new HashMap();
+        int chidx = 0;
+        for(int i: ranks){
+            List<Character> l = new ArrayList();
+            if(map.containsKey(i))
+                l = map.get(i);
+            l.add(suits[chidx]);
+            chidx++;
+            map.put(i,l);            
+        }
+        int max = 0;
+        for(int i: map.keySet()){
+            List<Character> list = map.get(i);
+            Set<Character> set = new HashSet<Character>(list);
+            max = Math.max(set.size(), max);
+        }
+        if(max >= 3)
+            return "Three of a Kind";
+        else if(max == 2)
+            return "Pair";
+        else
+            return "High Card";
+            
+        
+    }
+}
