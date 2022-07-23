@@ -1,0 +1,48 @@
+Ques - https://leetcode.com/contest/biweekly-contest-83/problems/design-a-number-container-system/
+
+
+class NumberContainers {
+    
+    HashMap<Integer, SortedSet<Integer>> numb = new HashMap();
+    HashMap<Integer, Integer> ind = new HashMap();
+
+    public NumberContainers() {
+        
+    }
+    
+    public void change(int index, int number) {
+        int n = ind.getOrDefault(index, -1);
+        if(ind.getOrDefault(index, Integer.MAX_VALUE) == number)
+            return;
+        
+        SortedSet<Integer> set= numb.getOrDefault(number, new TreeSet());
+        set.add(index);
+        numb.put(number, set);
+        
+        ind.put(index,number);
+        
+        
+        if(n != -1){
+            SortedSet<Integer> set2= numb.getOrDefault(n, new TreeSet());
+            set2.remove(Integer.valueOf(index));
+            numb.put(n, set2);
+        }
+               
+    }
+    
+    public int find(int number) {
+        SortedSet<Integer> set= numb.getOrDefault(number, new TreeSet());
+        if(set.size() == 0)
+            return -1;
+        int ans = set.first();
+        return ans;
+        
+    }
+}
+
+/**
+ * Your NumberContainers object will be instantiated and called as such:
+ * NumberContainers obj = new NumberContainers();
+ * obj.change(index,number);
+ * int param_2 = obj.find(number);
+ */
