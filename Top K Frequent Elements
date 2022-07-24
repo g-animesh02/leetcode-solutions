@@ -1,0 +1,32 @@
+Ques - https://leetcode.com/problems/top-k-frequent-elements/
+
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        
+        HashMap<Integer, Integer> map = new HashMap();
+        for(int i: nums)
+            map.put(i, map.getOrDefault(i,0)-1);
+        
+        PriorityQueue<Integer> queue = new PriorityQueue<>(new Comparator<>(){
+            public int compare(Integer a, Integer b){
+                if(map.get(a) != map.get(b))
+                    return Integer.compare(map.get(a), map.get(b));
+                return Integer.compare(a,b);
+            }
+        });
+        
+        for(int i: map.keySet())
+            queue.add(i);
+        
+        int[] ans = new int[k];
+        int i = 0; 
+        while(i < k){
+            ans[i] = (queue.poll());
+            i++;
+        }
+        return ans;
+        
+        
+    }
+}
