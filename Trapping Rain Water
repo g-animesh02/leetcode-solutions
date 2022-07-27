@@ -1,0 +1,36 @@
+Ques - https://leetcode.com/problems/trapping-rain-water/
+
+
+class Solution {
+    public int trap(int[] height) {
+        
+        long volBlack = 0;
+        for(int block : height)
+            volBlack += block;
+        long wholeVol = 0;
+        int left = 0, right = height.length-1;
+        int maxHeight = 0;
+        while(left<=right){
+            
+            if(height[left] < height[right]){
+                wholeVol += height[left]>=maxHeight ? (height[left]-maxHeight)*(right-left+1) : 0;
+                maxHeight = Math.max(maxHeight, height[left]);
+                left++;
+                
+            }else if(height[right] < height[left]){
+                wholeVol += height[right]>=maxHeight ? (height[right]-maxHeight)*(right-left+1) : 0;
+                maxHeight = Math.max(maxHeight, height[right]);
+                right--;
+            }else{
+                wholeVol += height[left]>=maxHeight ? (height[left]-maxHeight)*(right-left+1) : 0;
+                maxHeight = Math.max(maxHeight, height[left]);
+                left++;
+                right--;
+            }   
+        }
+        System.out.println(wholeVol + "  " + volBlack);
+        long result = wholeVol-volBlack;
+        return (int)result;
+        
+    }
+}
