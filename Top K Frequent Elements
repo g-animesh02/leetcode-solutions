@@ -1,5 +1,6 @@
 Ques - https://leetcode.com/problems/top-k-frequent-elements/
 
+Time Complexity - O(nlogn)
 
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
@@ -26,6 +27,45 @@ class Solution {
             i++;
         }
         return ans;
+        
+        
+    }
+}
+
+Time Complexity - O(nlogk)
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        
+        HashMap<Integer, Integer> map = new HashMap();
+        for(int i:nums)
+            map.put(i, map.getOrDefault(i,0)+1);
+        
+        PriorityQueue<Integer> queue = new PriorityQueue<>(new Comparator<>(){
+            public int compare(Integer a, Integer b){
+                return Integer.compare(map.get(a), map.get(b));
+            }
+        });
+        List<Integer> val = new ArrayList<>(map.keySet());
+        int fill = 0;
+        while(fill < k)
+            queue.add(val.get(fill++));
+        
+        for(int i = fill; i < val.size(); i++){
+            if(map.get(queue.peek()) < map.get(val.get(i))){
+                queue.add(val.get(i));
+                queue.poll();
+            }     
+        }
+        
+        int[] ans = new int[k];
+        int i = 0;
+        while(!queue.isEmpty())
+            ans[i++] = queue.poll();
+               
+        return ans;
+               
+        
         
         
     }
