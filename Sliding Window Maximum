@@ -1,0 +1,55 @@
+Ques - https://leetcode.com/problems/sliding-window-maximum/
+
+
+TLE Approach - O(nk)
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        
+        int result[] = new int[nums.length-k+1];
+        int maxWindow = Integer.MIN_VALUE;
+        for(int i = 0; i < k; i++)
+            maxWindow = Math.max(maxWindow, nums[i]);
+
+        
+        for(int i = 0; i <= nums.length-k; i++){
+            if(i!=0 && nums[i-1] == maxWindow && nums[i+k-1]<maxWindow){
+                maxWindow = nums[i];
+                for(int j = i; j < i+k; j++)
+                    maxWindow = Math.max(maxWindow, nums[j]);
+            }
+            maxWindow = Math.max(maxWindow, nums[i+k-1]);
+            
+            result[i] = maxWindow;
+            //System.out.println(i + "  "  + Arrays.toString(result));
+           
+        }
+        return result;
+        
+    }
+}
+
+
+Optimized - O(n)
+Using Deque
+
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        
+        int result[] = new int[nums.length-k+1];
+        Deque<Integer> indexQueue = new ArrayDeque<>();
+        int resultIndex = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(!indexQueue.isEmpty() && indexQueue.peekFirst() < i-k+1)
+                indexQueue.pollFirst();
+            while(!indexQueue.isEmpty() && nums[indexQueue.peekLast()] < nums[i])
+                indexQueue.pollLast();
+            indexQueue.addLast(i);
+            if(i >= k-1)
+                result[resultIndex++] = nums[indexQueue.peekFirst()];
+        }
+        
+        
+        return result;
+        
+    }
+}
