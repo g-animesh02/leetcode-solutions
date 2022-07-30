@@ -1,0 +1,35 @@
+Ques - https://leetcode.com/problems/generate-parentheses/
+
+
+class Solution {
+    private List<String> parenthesis;
+    private int maxOpenClose;
+    public List<String> generateParenthesis(int n) {
+        parenthesis = new ArrayList();
+        maxOpenClose = n;
+        parenthesisGen(0,0, new StringBuilder());
+        
+        return parenthesis;
+        
+    }
+    private void parenthesisGen(int open, int close, StringBuilder grp){
+        if(open == maxOpenClose && close == maxOpenClose){
+            parenthesis.add(grp.toString());
+            return;
+        }else if(open == maxOpenClose){
+            grp.append(')');
+            parenthesisGen(open, close+1, grp);
+            grp.deleteCharAt(grp.length() - 1);
+            
+        }else{
+            grp.append('(');
+            parenthesisGen(open+1, close, grp);
+            grp.deleteCharAt(grp.length() - 1);
+            if(close < open){
+                grp.append(')');
+                parenthesisGen(open, close+1, grp);
+                grp.deleteCharAt(grp.length() - 1);
+            }                       
+        }
+    }
+}
