@@ -1,0 +1,50 @@
+Ques - https://leetcode.com/problems/minimum-window-substring/
+
+
+class Solution {
+    public String minWindow(String s, String t) {
+        int lenS = s.length();
+        int lenT = t.length();
+        int minI=-1,minJ=-1,minLen=Integer.MAX_VALUE;
+        if(lenS < lenT)
+            return "";
+        
+        HashMap<Character, Integer> mapOfT = new HashMap();
+        for(char ch:t.toCharArray())
+            mapOfT.put(ch, mapOfT.getOrDefault(ch,0)+1);
+        Set<Character> set = new HashSet();
+        int j = 0;
+        HashMap<Character, Integer> mapOfS = new HashMap();
+        int match = 0;
+        
+        for(int i = 0; i < s.length(); i++){
+            char ch = s.charAt(i);
+            mapOfS.put(ch, mapOfS.getOrDefault(ch,0)+1);
+            if(mapOfS.get(ch) >= mapOfT.getOrDefault(ch,Integer.MAX_VALUE) && set.add(ch)){
+                match++;
+            }
+            //System.out.println(match + "  " + (mapOfT.keySet()).size() + "  " + set);
+            while(match == (mapOfT.keySet()).size() && j<=i){
+                if(i-j < minLen){
+                    minLen = i-j;
+                    minI = i;
+                    minJ = j;
+                }
+                char chRemove = s.charAt(j);
+                j++;
+                mapOfS.put(chRemove, mapOfS.getOrDefault(chRemove,0)-1);
+                if(mapOfS.get(chRemove) < mapOfT.getOrDefault(chRemove, Integer.MIN_VALUE)){
+                    match--;
+                    set.remove(chRemove);
+                }
+            
+            }
+        }
+        //System.out.println(match + "  " + minI + "  " + minJ);
+            
+        if(minI == -1 || minJ == -1)
+            return "";
+        return s.substring(minJ, minI+1);
+        
+    }
+}
