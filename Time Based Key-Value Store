@@ -1,0 +1,51 @@
+Ques - https://leetcode.com/problems/time-based-key-value-store/
+
+
+class TimeMap {
+    
+    HashMap<String, List<Pair<String, Integer>>> map;
+
+    public TimeMap() {
+        map= new HashMap();   
+    }
+    
+    public void set(String key, String value, int timestamp) {
+        Pair<String, Integer> valuePair = new Pair(value,timestamp);
+        List<Pair<String, Integer>> keyValues = map.getOrDefault(key, new ArrayList());
+        keyValues.add(valuePair);
+        map.put(key, keyValues);
+        
+    }
+    
+    public String get(String key, int timestamp) {
+        
+        if(!map.containsKey(key))
+            return "";
+        
+        List<Pair<String,Integer>> keyValues = map.getOrDefault(key, new ArrayList());
+        //System.out.println(keyValues);
+        if(keyValues.size()==1)
+            return (keyValues.get(0)).getKey();
+        
+        int target = timestamp;
+        int l = 1, u = keyValues.size()-1;
+        if(keyValues.get(u).getValue() < target)
+            return keyValues.get(u).getKey();
+        
+        while(l <= u){
+            int mid = (u-l)/2+l;
+            Pair<String, Integer> pair = keyValues.get(mid);
+            Pair<String, Integer> pairSmall = keyValues.get(mid-1);
+            //System.out.println(pair.getValue() +  "  " + mid);
+            if(pair.getValue() == target)
+                return pair.getKey();
+            else if(pair.getValue() > target && pairSmall.getValue() <= target)
+                return pairSmall.getKey();
+            else if(pair.getValue() > target)
+                u = mid-1;
+            else
+                l = mid+1;
+        }
+        return "";
+    }
+}
