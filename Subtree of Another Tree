@@ -1,0 +1,27 @@
+Ques - https://leetcode.com/problems/subtree-of-another-tree/
+
+
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        return traverse(root, subRoot);
+        
+    }
+    
+    boolean traverse(TreeNode node, TreeNode subRoot){
+        if(node == null)
+            return subRoot==null;
+        boolean chkSameTree =  node.val==subRoot.val?isSame(node,subRoot):false;
+        return chkSameTree||traverse(node.left, subRoot) || traverse(node.right, subRoot);
+    }
+    
+    boolean isSame(TreeNode p, TreeNode q){
+        if(q == null && p == null)
+            return true;
+        else if((p==null && q!=null) || (p!=null && q==null))
+            return false;
+        if(p.val == q.val)
+            return isSame(p.left,q.left) && isSame(p.right, q.right);
+        else
+            return false;
+    }
+}
