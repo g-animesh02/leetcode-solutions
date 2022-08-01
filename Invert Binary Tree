@@ -1,0 +1,19 @@
+Ques - https://leetcode.com/problems/invert-binary-tree/
+
+
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        return traverse(root);
+        
+    }
+    
+    private TreeNode traverse(TreeNode node){
+        if(node == null)
+            return null;
+        TreeNode left = traverse(node.left);
+        TreeNode right = traverse(node.right);
+        node.right = left;
+        node.left = right;
+        return node;
+    }
+}
