@@ -21,3 +21,35 @@ class Solution {
         store(node.right, level+1, lists);
     }
 }
+
+
+
+Using Queue
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        
+        if(root == null)
+            return new ArrayList();
+        
+        List<List<Integer>> traversal = new ArrayList();
+        
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        
+        while(!queue.isEmpty()){
+            int lengthOfQueue = queue.size();
+            List<Integer> level = new ArrayList();
+            while(lengthOfQueue > 0){
+                TreeNode node = queue.poll();
+                if(node.left != null)
+                    queue.offer(node.left);
+                if(node.right != null)
+                    queue.offer(node.right);
+                level.add(node.val);
+                lengthOfQueue--;
+            }
+            traversal.add(level);
+        }
+        return traversal;
+    }
+}
