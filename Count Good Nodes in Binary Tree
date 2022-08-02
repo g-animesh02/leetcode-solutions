@@ -1,0 +1,18 @@
+Ques - https://leetcode.com/problems/count-good-nodes-in-binary-tree/
+
+
+class Solution {
+    private int good=0;
+    public int goodNodes(TreeNode root) {
+        traverse(root, Integer.MIN_VALUE);        
+        return good;
+    }
+    
+    private void traverse(TreeNode node, int max){
+        if(node != null){
+			good += node.val>=max?1:0;
+			traverse(node.left, Math.max(max, node.val));
+			traverse(node.right, Math.max(max, node.val));
+		}        
+    }    
+}
