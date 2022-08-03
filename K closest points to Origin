@@ -18,3 +18,31 @@ class Solution {
         return ans;
     }
 }
+
+
+
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        
+        PriorityQueue<int[]> queue = new PriorityQueue<>(new Comparator<int[]>(){
+            public int compare(int[] b, int[] a){
+                return Integer.compare(a[0]*a[0]+a[1]*a[1], b[0]*b[0]+b[1]*b[1]);
+            }
+        });
+        
+        int[][] ans = new int[k][2];
+        
+        for(int []i : points){
+            queue.offer(i);
+            if(queue.size() > k)
+                queue.poll();
+            
+        }
+        
+        int i = 0;
+        while(!queue.isEmpty()){
+            ans[i++] = queue.poll();
+        }
+        return ans;
+    }
+}
