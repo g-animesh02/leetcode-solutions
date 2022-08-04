@@ -1,0 +1,33 @@
+Ques - https://leetcode.com/problems/combination-sum/
+
+
+class Solution {
+    
+    private List<List<Integer>> result;
+    private int[] candidatesArray;
+    private int target;
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        result = new ArrayList();
+        this.target = target;
+        candidatesArray = candidates;
+        traverse(new ArrayList(), 0, 0);
+        return result;
+        
+    }
+    
+    private void traverse(List<Integer> temp, int sum, int index){
+        
+        if(sum == target){
+            result.add(new ArrayList(temp));
+            return;
+        }
+        if(index >= candidatesArray.length || sum > target) return;
+        
+        temp.add(candidatesArray[index]);
+        traverse(temp, sum+candidatesArray[index], index);
+        temp.remove(Integer.valueOf(candidatesArray[index]));
+        traverse(temp, sum, index+1);
+
+    }
+    
+}
