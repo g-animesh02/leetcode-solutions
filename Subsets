@@ -1,0 +1,27 @@
+Ques - https://leetcode.com/problems/subsets/
+
+
+class Solution {
+    
+    private List<List<Integer>> result = new ArrayList();
+    private int[] numsArray;
+    public List<List<Integer>> subsets(int[] nums) {
+        numsArray = nums;
+        traverse(new ArrayList(), 0);
+        return result;
+        
+        
+    }
+    private void traverse(List<Integer> temp, int index){
+        if(index >= numsArray.length) result.add(new ArrayList<>(temp));
+        else{
+            temp.add(numsArray[index]);
+            traverse(temp, index+1);
+            temp.remove(Integer.valueOf(numsArray[index]));        
+            traverse(temp, index+1);
+        }
+        
+    }
+}
+
+
