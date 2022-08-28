@@ -1,0 +1,60 @@
+Ques - https://leetcode.com/problems/partition-list/
+
+
+class Solution {
+    
+    private ListNode ansHead=null, prev=null, after=null;
+    private void insertBefore(ListNode xNode, ListNode nodeToInsert){
+        if(prev == null){
+            nodeToInsert.next = xNode;
+            ansHead = nodeToInsert;
+        }else{
+            prev.next = nodeToInsert;
+            nodeToInsert.next = xNode;
+        }
+        prev = nodeToInsert;     
+    }
+    
+    private void insertAfter(ListNode xNode, ListNode nodeToInsert){
+        if(after == null) xNode.next = nodeToInsert;
+        else after.next = nodeToInsert;
+        after = nodeToInsert;
+        after.next = null;
+    }
+    
+    private ListNode findLocationOfX(int x, ListNode head){
+        int len = -1;
+        ListNode temp = head;
+        while(temp != null){
+            if(temp.val >= x) return temp;
+            temp = temp.next;
+        }
+        return null;
+    }
+    
+    public ListNode partition(ListNode head, int x) {
+        
+        ListNode part = findLocationOfX(x, head);
+        if(part == null) return head;
+        ansHead = part;
+        
+        List<ListNode> collect = new ArrayList();
+        ListNode t = head;
+        while(t!=null){
+            collect.add(t);
+            t = t.next;
+        }
+        
+        ansHead.next = null;
+        
+        int i = 0;
+        while(i < collect.size()){
+            ListNode temp = collect.get(i++);
+            if(temp == part) continue;
+            if(temp.val < x) insertBefore(part, temp);
+            else insertAfter(part, temp);
+            temp = temp.next;
+        }
+        return ansHead;
+    }
+}
