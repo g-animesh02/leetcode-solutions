@@ -1,0 +1,26 @@
+Ques - https://leetcode.com/problems/numbers-with-same-consecutive-differences/
+
+
+class Solution {
+    Set<Integer> result = new HashSet<>();
+    public int[] numsSameConsecDiff(int n, int k) {
+        for(int i = 1; i <= 9; i++){
+            numberTraversal(i, n-1, k, i);
+        }
+        int[] res = new int[result.size()];
+        int c = 0;
+        for(int i:result) res[c++] = i;
+        return res;
+    }
+    
+    private void numberTraversal(int d, int n, int k, int number){
+        if(n == 0 || d < 0 || d > 9 || number < 0){
+            if(number != -1 && n==0) result.add(number);
+            return;
+        }else{
+            if(d+k>=10 || d-k<0) numberTraversal(10, n, k, -1);
+            if(d-k >= 0) numberTraversal(d-k, n-1, k, number*10+(d-k));
+            if(d+k < 10) numberTraversal(d+k, n-1, k, number*10+(d+k));
+        }
+    }
+}
