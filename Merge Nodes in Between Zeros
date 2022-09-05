@@ -1,0 +1,34 @@
+Ques - https://leetcode.com/problems/merge-nodes-in-between-zeros/
+
+
+class Solution {
+    public ListNode mergeNodes(ListNode head) {
+        
+        
+        if(head == null) return null;
+        ListNode temp = head;
+        ListNode traversal = head.next;
+        
+        while(traversal != null){
+            if(temp.val == 0){
+                temp = temp.next;
+                
+            }
+            while(traversal.val != 0){
+                if(traversal == temp){
+                    traversal = traversal.next;
+                    continue;
+                }
+                temp.val += traversal.val;
+                traversal = traversal.next;
+            }
+            temp.next = traversal.next;
+            temp = temp.next;
+            traversal = traversal.next;
+            
+            
+        }
+        return head.next;
+        
+    }
+}
