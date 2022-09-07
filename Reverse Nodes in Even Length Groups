@@ -1,0 +1,48 @@
+Ques - https://leetcode.com/problems/reverse-nodes-in-even-length-groups/
+
+
+class Solution {
+    
+    private void reverseFromTo(ListNode prevFrom, ListNode to){
+        ListNode from = prevFrom.next;
+        prevFrom.next = to;
+        ListNode afterTo = to.next;
+        
+        to.next = null;
+        
+        ListNode prev = afterTo;
+        ListNode temp = from;
+        
+        while(temp != null){
+            ListNode node = temp.next;
+            temp.next = prev;
+            prev = temp;
+            temp = node;
+        }
+    }
+    
+    public ListNode reverseEvenLengthGroups(ListNode head) {
+        ListNode temp = head;
+        ListNode prevTemp = head;
+        int c = 1;
+        while(temp != null){
+            int travel = c;
+            c++;
+            int length = 0;
+            ListNode prevFrom = prevTemp;
+            while(travel > 0 && temp != null){
+                prevTemp = temp;
+                temp = temp.next;
+                length++;
+                travel -= 1;
+            }
+            if(length%2 == 0){
+                ListNode to = prevTemp;
+                prevTemp = prevFrom.next;
+                reverseFromTo(prevFrom, to);
+            }
+        }
+        
+        return head;
+    }
+}
