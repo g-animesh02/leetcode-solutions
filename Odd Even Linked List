@@ -1,0 +1,29 @@
+Ques - https://leetcode.com/problems/odd-even-linked-list/
+
+
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        if(head == null) return null;
+        ListNode startOdd = new ListNode();
+        ListNode startEven = new ListNode();
+        ListNode traverseEven = startEven;
+        ListNode traverseOdd = startOdd;
+        int c = 1;
+        ListNode temp = head;
+        while(temp != null){
+            if(c%2 == 0){
+                traverseEven.next = temp;
+                traverseEven = traverseEven.next;
+            }else{
+                traverseOdd.next = temp;
+                traverseOdd = traverseOdd.next;
+            }
+            c++;
+            temp = temp.next;
+        }
+        traverseEven.next=null;
+        traverseOdd.next=startEven.next;
+        return startOdd.next;
+        
+    }
+}
