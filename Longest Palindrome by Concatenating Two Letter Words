@@ -1,0 +1,48 @@
+Ques - https://leetcode.com/problems/longest-palindrome-by-concatenating-two-letter-words/submissions/
+
+
+class Solution {
+    public int longestPalindrome(String[] words) {
+        HashMap<String, Integer> map = new HashMap();
+        Set<String> keys = new HashSet();
+        for(String word : words){
+            map.put(word, map.getOrDefault(word,0)+1);
+            keys.add(word);
+        }
+        
+        int countLength = 0;
+        boolean isCenter = false;
+        
+        for(String key : keys){
+            char f = key.charAt(0);
+            char l = key.charAt(1);
+            if(map.get(key) <= 0) continue;
+            if(f == l){
+                int countCenter = map.get(key);
+                if(countCenter % 2 == 0){
+                   countLength += countCenter*2; 
+                }else{
+                    countLength += (countCenter-1)*2;
+                    if(!isCenter){
+                        countLength += 2;
+                        isCenter = true;
+                    }
+                }
+                map.put(key, countCenter%2==0?0:1);
+            }else if(l!=f){
+                String palKey = ""+l+f;
+                int getPalWordCount = map.getOrDefault(palKey, 0);
+                int getWordCount = map.get(key);
+                countLength += Math.min(getWordCount, getPalWordCount)*4;
+                if(getWordCount < getPalWordCount){
+                    map.put(key, 0);
+                    map.put(palKey, getPalWordCount-getWordCount);
+                }else{
+                    map.put(palKey, 0);
+                    map.put(key, getWordCount-getPalWordCount);
+                }
+            }
+        }
+        return countLength;
+    }
+}
