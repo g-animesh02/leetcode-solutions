@@ -1,0 +1,30 @@
+Ques - https://leetcode.com/problems/bag-of-tokens/
+
+
+class Solution {
+    public int bagOfTokensScore(int[] tokens, int power) {
+        Arrays.sort(tokens);
+        if(tokens.length == 0 || power < tokens[0]) return 0;
+        
+        int length = tokens.length;
+        int start = 0, end = length-1;
+        int score = 0;
+        while(end-start > 1){
+            while(end-start > 1 && power >= tokens[start]){
+                power -= tokens[start++];
+                score++;
+            }
+            if(end-start <= 1) break;
+            score -= 1;
+            power += tokens[end--];
+        }
+        //System.out.println(tokens[end] + "  " + power);
+        while(start <= end && power >= tokens[start]){
+                power -= tokens[start++];
+                score++;
+        }
+        return score;
+    }
+}
+
+
