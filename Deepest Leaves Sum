@@ -1,0 +1,24 @@
+Ques - https://leetcode.com/problems/deepest-leaves-sum/
+
+
+class Solution {
+    int maxLevel = 0;
+    int sum = 0;
+    public int deepestLeavesSum(TreeNode root) {
+        traverse(0,root);
+        return sum;
+    }
+    private void traverse(int height, TreeNode node){
+        if(node==null) return;
+        if(height > maxLevel){
+            maxLevel = height;
+            sum = node.val;
+        }else if(maxLevel == height){
+            sum += node.val;
+        }
+        traverse(height+1, node.left);
+        traverse(height+1, node.right);
+        
+        
+    }
+}
