@@ -1,0 +1,22 @@
+Ques - https://leetcode.com/problems/insufficient-nodes-in-root-to-leaf-paths/
+
+
+class Solution {
+    public TreeNode sufficientSubset(TreeNode root, int limit) {
+        return traversal(root, 0, limit);
+    }
+    
+    private TreeNode traversal(TreeNode node, int sum, int limit){
+        if(node == null) return null;
+        sum += node.val;
+        if(node.left==null && node.right==null){
+            if(sum < limit) return null;
+            return node;
+        }
+        node.left = traversal(node.left, sum, limit);
+        node.right = traversal(node.right, sum, limit);
+        
+        if(node.left==null && node.right == null) return null;
+        return node;
+    }
+}
