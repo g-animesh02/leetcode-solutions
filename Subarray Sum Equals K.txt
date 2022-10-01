@@ -1,0 +1,26 @@
+Ques - https://leetcode.com/problems/subarray-sum-equals-k/?envType=study-plan&id=data-structure-ii
+
+
+class Solution {
+    public int subarraySum(int[] A, int k) {
+        Map<Integer, Integer> map = new HashMap();
+        int runningSum = 0;
+        int count = 0;
+        
+        map.put(runningSum, 1);
+        
+        for (int a: A) {
+            runningSum += a;
+            int remaining = runningSum - k;
+    
+            count += map.getOrDefault(remaining, 0);
+
+            Integer i = map.putIfAbsent(runningSum, 1);
+            if (i != null) {
+                map.put(runningSum, i + 1);
+            }
+        }
+        
+        return count;
+    }
+}
