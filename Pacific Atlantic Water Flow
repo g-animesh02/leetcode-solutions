@@ -1,0 +1,60 @@
+Ques - https://leetcode.com/problems/pacific-atlantic-water-flow/
+
+
+
+class Solution {
+    
+    int [][] offsets={{0,1},{1,0},{-1,0},{0,-1}};
+    public void pass(int[][] matrix, boolean[][] visited, int row, int col) {
+        visited[row][col] = true;
+        for (int[] offset: offsets) {
+            int x = row + offset[0];
+            int y = col + offset[1];
+            if (x >= 0 && x < matrix.length && y >= 0 && y < matrix[0].length &&
+                !visited[x][y] && matrix[x][y] >= matrix[row][col]) {
+                pass(matrix, visited, x, y);
+            }
+        }
+    }
+
+    public List < List < Integer >> pacificAtlantic(int[][] matrix) {
+
+        var result = new ArrayList < List < Integer >> ();
+        if (matrix.length == 0) return result;
+
+        int colLenth = matrix[0].length;
+        int lastCol = colLenth - 1;
+        boolean[][] visitedAtl = new boolean[matrix.length][colLenth];
+        boolean[][] visitedPac = new boolean[matrix.length][colLenth];
+
+        for (int row = 0; row < matrix.length; row++) {
+            if (!visitedPac[row][0]) {
+                pass(matrix, visitedPac, row, 0);
+            }
+            if (!visitedAtl[row][lastCol]) {
+                pass(matrix, visitedAtl, row, lastCol);
+            }
+        }
+        for (int col = 0; col < colLenth; col++) {
+            if (!visitedPac[0][col]) {
+                pass(matrix, visitedPac, 0, col);
+            }
+            if (!visitedAtl[matrix.length - 1][col]) {
+                pass(matrix, visitedAtl, matrix.length - 1, col);
+            }
+        }
+        for (int row = 0; row < matrix.length; row++) {
+
+            for (int col = 0; col < colLenth; col++) {
+                if (visitedPac[row][col] && visitedAtl[row][col]) {
+                    var item = new ArrayList < Integer > (2);
+                    item.add(row);
+                    item.add(col);
+                    result.add(item);
+                }
+            }
+        }
+        return result;
+
+    }
+}
