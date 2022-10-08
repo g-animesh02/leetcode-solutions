@@ -1,0 +1,38 @@
+Ques - https://leetcode.com/problems/add-one-row-to-tree/
+
+
+class Solution {
+    public TreeNode addOneRow(TreeNode root, int val, int depth) {
+        if(depth == 1){
+            TreeNode node = new TreeNode(val);
+            node.left = root;
+            root=node;
+        }else{
+            Queue<TreeNode> queue = new LinkedList<>();
+            queue.add(root);
+            
+            while(depth > 0 && !queue.isEmpty()){
+                depth--;
+                int len = queue.size();
+                
+                while(len > 0 && depth>0){
+                    TreeNode node = queue.poll();
+                    if(node.left!=null) queue.offer(node.left);
+                    if(node.right!=null) queue.offer(node.right);
+                    if(depth==1){
+                        TreeNode nl = new TreeNode(val, node.left,null);
+                        node.left=nl;
+                        TreeNode rl = new TreeNode(val, null, node.right);
+                        node.right=rl;
+                    }
+                    len--;
+                }
+            }
+        
+        
+        }
+            
+        
+        return root;
+    }
+}
