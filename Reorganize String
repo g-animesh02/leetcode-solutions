@@ -1,0 +1,40 @@
+Ques - https://leetcode.com/problems/reorganize-string/
+
+
+class Solution {
+    public String reorganizeString(String s) {
+        int alpha[] = new int[26];
+        char ch[] = s.toCharArray();
+        for(char c : ch)
+            alpha[c-'a']++;
+        
+        PriorityQueue<Integer> queue = new PriorityQueue<>(new Comparator<Integer>(){
+            public int compare(Integer a, Integer b){
+                return Integer.compare(alpha[b-'a'], alpha[a-'a']);
+            }
+        });
+        int c = 0;
+        for(int a : alpha){
+            if(a > 0) queue.offer(Integer.valueOf(c +'a'));
+            c++;
+        }
+        StringBuilder res = new StringBuilder();
+        while(!queue.isEmpty()){
+            char f = (char)(int)queue.poll();
+            if(queue.isEmpty()){
+                if(alpha[f-'a']>1) return "";
+                else if (alpha[f-'a'] == 1) res.append(f);
+            }
+            else{
+                char se = (char)(int)queue.poll();
+                alpha[f-'a']--;
+                alpha[se-'a']--;
+                res.append(f);
+                res.append(se);
+                if(alpha[f-'a'] >= 1) queue.offer(Integer.valueOf(f));
+                if(alpha[se-'a'] >= 1) queue.offer(Integer.valueOf(se));
+            }
+        }
+        return res.toString();
+    }
+}
