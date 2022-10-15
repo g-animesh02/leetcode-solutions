@@ -1,0 +1,23 @@
+Ques - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+
+
+class Solution {
+    TreeNode lca=null;
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        lcaNodes(root, p, q);
+        return lca;
+    }
+    private boolean lcaNodes(TreeNode node, TreeNode p, TreeNode q){
+        if(node == null) return false;
+        
+        int left = lcaNodes(node.left, p, q)?1:0;
+        int right = lcaNodes(node.right, p, q)?1:0;
+        int mid = (node==p ||node == q)?1:0;
+        
+        if(left+right+mid >= 2){
+            lca = node;
+            return false;
+        }
+        return (left+right+mid)>0;
+    }
+}
