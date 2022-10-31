@@ -1,0 +1,24 @@
+Ques - https://leetcode.com/problems/minimum-addition-to-make-integer-beautiful/
+
+
+class Solution {
+    public long makeIntegerBeautiful(long n, int target) {
+        long sum = sumOfDigit(n);
+        long old = n;
+        long rem = 0;
+        long divisor = 10;
+        while(sum > target){
+            rem = n%divisor;
+            n += divisor-rem;
+            divisor *= 10;
+            sum = sumOfDigit(n);
+        }
+        return n-old;
+        
+    }
+    private long sumOfDigit(long num){
+        long sum = 0;
+        for(long i = num; i != 0; i/=10) sum += i%10;
+        return sum;
+    }
+}
